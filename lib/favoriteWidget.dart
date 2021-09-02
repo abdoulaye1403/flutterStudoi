@@ -7,11 +7,11 @@ class FavoriteIconWidget extends StatefulWidget {
 }
 
 class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
-  bool? _isFavorited;
+  bool _isFavorited;
 
   void _toggleFavorite(FavoriteChangeNotifier _notifier) {
     setState(() {
-      if (_isFavorited!) {
+      if (_isFavorited) {
         _isFavorited = false;
       } else {
         _isFavorited = true;
@@ -27,7 +27,7 @@ class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
     _isFavorited = _notifier.isFavorited;
     return IconButton(
         onPressed: () => _toggleFavorite(_notifier),
-        icon: _isFavorited! ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
+        icon: _isFavorited ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
         color: Colors.red);
   }
 }
