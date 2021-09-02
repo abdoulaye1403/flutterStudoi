@@ -1,44 +1,46 @@
 import 'package:flutter/material.dart';
+import 'favoriteChangeNotifier.dart';
+import 'package:provider/provider.dart';
 
-class FavoriteWidget extends StatefulWidget {
-  final bool isFavorited;
-  final int favoriteCount;
-  const FavoriteWidget(
-      {Key? key, required this.isFavorited, required this.favoriteCount})
-      : super(key: key);
-
-  _FavoriteWidgetState createState() =>
-      _FavoriteWidgetState(this.isFavorited, this.favoriteCount);
+class FavoriteIconWidget extends StatefulWidget {
+  _FavoriteIconWidgetState createState() => _FavoriteIconWidgetState();
 }
 
-class _FavoriteWidgetState extends State<FavoriteWidget> {
-  bool _isFavorited;
-  int _favoriteCount;
-  _FavoriteWidgetState(this._isFavorited, this._favoriteCount);
-  void _toggleFavorite() {
+class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
+  bool? _isFavorited;
+
+  void _toggleFavorite(FavoriteChangeNotifier _notifier) {
     setState(() {
-      if (_isFavorited) {
+      if (_isFavorited!) {
         _isFavorited = false;
-        _favoriteCount -= 1;
       } else {
         _isFavorited = true;
-        _favoriteCount += 1;
       }
+      _notifier.isFavorited = _isFavorited;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        IconButton(
-            onPressed: _toggleFavorite,
-            icon: _isFavorited
-                ? Icon(Icons.favorite)
-                : Icon(Icons.favorite_border),
-            color: Colors.red),
-        Text('$_favoriteCount')
-      ],
-    );
+    FavoriteChangeNotifier _notifier =
+        Provider.of<FavoriteChangeNotifier>(context);
+    _isFavorited = _notifier.isFavorited;
+    return IconButton(
+        onPressed: () => _toggleFavorite(_notifier),
+        icon: _isFavorited! ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
+        color: Colors.red);
+  }
+}
+
+class FavoriteTextWidget extends StatefulWidget {
+  _FavoriteTextWidgetState createState() => _FavoriteTextWidgetState();
+}
+
+class _FavoriteTextWidgetState extends State<FavoriteTextWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<FavoriteChangeNotifier>(
+        builder: (context, notifier, _) =>
+            Text(notifier.favoriteCount.toString()));
   }
 }
