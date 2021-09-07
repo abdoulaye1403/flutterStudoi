@@ -24,8 +24,8 @@ dependencies:
   provider: ^6.0.0 
   transparent_image: ^2.0.0
   cached_network_image: ^3.1.0
-  sqflite: any
-  path: any
+  hive: ^2.0.4
+  hive_flutter: ^1.1.0
   flutter:
     sdk: flutter
 
@@ -35,6 +35,8 @@ dependencies:
   cupertino_icons: ^1.0.3
 
 dev_dependencies:
+  hive_generator: ^1.1.0
+  build_runner: ^2.1.2
   flutter_test:
     sdk: flutter
 

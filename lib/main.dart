@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:test_flutter/recipeScreen.dart';
+import 'package:test_flutter/recipeBox.dart';
 import 'package:test_flutter/recipeListScreen.dart';
+import 'package:test_flutter/recipeScreen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await RecipeBox.init();
   runApp(MyApp());
 }
 
@@ -10,10 +13,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         initialRoute: '/',
         onGenerateRoute: (settings) => RouteGenerator.generateRoute(settings),
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: Colors.red,
         ));

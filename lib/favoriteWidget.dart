@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'favoriteChangeNotifier.dart';
 import 'package:provider/provider.dart';
+
+import 'favoriteChangeNotifier.dart';
 
 class FavoriteIconWidget extends StatefulWidget {
   _FavoriteIconWidgetState createState() => _FavoriteIconWidgetState();
@@ -16,6 +17,7 @@ class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
       } else {
         _isFavorited = true;
       }
+
       _notifier.isFavorited = _isFavorited;
     });
   }
@@ -26,9 +28,10 @@ class _FavoriteIconWidgetState extends State<FavoriteIconWidget> {
         Provider.of<FavoriteChangeNotifier>(context);
     _isFavorited = _notifier.isFavorited;
     return IconButton(
-        onPressed: () => _toggleFavorite(_notifier),
-        icon: _isFavorited ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
-        color: Colors.red);
+      icon: _isFavorited ? Icon(Icons.favorite) : Icon(Icons.favorite_border),
+      color: Colors.red,
+      onPressed: () => _toggleFavorite(_notifier),
+    );
   }
 }
 
